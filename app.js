@@ -4,6 +4,7 @@ var express = require("express"),
 	path = require("path"),
 	cors = require("cors"),
 	app = express(),
+	influx_helper = require('./utils/influx'),
 	port = process.env.PORT || 5000;
 
 var getRandomInteger = function(min, max) {
@@ -27,6 +28,8 @@ app.engine("html", hbs.__express);
 app.use(express.static(path.join(__dirname, "public")));
 
 var routes = require("./routes/");
+
+app.all('*', influx_helper.req_counter);
 
 app.all("/api/*", [
 	function(req, res, next) {
