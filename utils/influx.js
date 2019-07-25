@@ -1,5 +1,5 @@
 const INFLUXDB_HOST = process.env.INFLUXDB_HOST || "localhost",
-    INFLUXDB_DBNAME = process.env.INFLUXDB_DBNAME || "resres_count",
+    INFLUXDB_DBNAME = process.env.INFLUXDB_DBNAME || "reqres",
     MEASUREMENT='requests';
 
 const Influx = require('influx');
@@ -23,10 +23,13 @@ const influx = new Influx.InfluxDB({
 function req_counter_save(client_ip) {
     influx.getDatabaseNames().then(names=>{
         if(!names.includes(INFLUXDB_DBNAME)){
-            return influx.createDatabase(INFLUXDB_DBNAME);
+            influx.createDatabase(INFLUXDB_DBNAME);
         }
-    });
+    }).then(()=> do_write(client_ip));
 
+}
+
+function do_write(client_ip) {
     influx.writePoints([
         {
             measurement: MEASUREMENT,

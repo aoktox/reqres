@@ -14,6 +14,11 @@ ReqRes is a bare-bones ExpressJS application.
 * `node app.js` or use [Nodemon](https://github.com/remy/nodemon)
 * Run `gulp` if you're modifying the Sass
 
+## InfluxDB config
+Set these env variable
+* `INFLUXDB_HOST`
+* `INFLUXDB_DBNAME`
+
 ## Tour
 
 * [app.js](https://github.com/benhowdle89/reqres/blob/master/app.js) - this is where we create the Express app and define all of our routes
